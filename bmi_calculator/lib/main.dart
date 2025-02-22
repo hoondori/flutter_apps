@@ -114,7 +114,7 @@ class BmiResult extends StatelessWidget {
   final double height;
   final double weight;
   late final bmi = weight / (height/100)*(height/100);
-    
+
   BmiResult({
     super.key,
     required this.height,

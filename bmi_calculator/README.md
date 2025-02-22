@@ -1,16 +1,24 @@
-# bmi_calculator
+# BMI Calculator
 
-A new Flutter project.
+## Overview
+The **BMI Calculator** is a Flutter-based mobile application that allows users to calculate their Body Mass Index (BMI) by inputting their height and weight. The app visualizes the BMI result using satisfaction/dissatisfaction icons to provide an intuitive understanding of the classification.
 
-## Getting Started
+## Features
+- **BMI Calculation:** Users enter their height and weight, and the app calculates their BMI instantly.
+- **Visual Representation:** The BMI category is displayed with satisfaction/dissatisfaction icons for better clarity.
 
-This project is a starting point for a Flutter application.
+## Design & Implementation
 
-A few resources to get you started if this is your first Flutter project:
+### ** Efficient Input Handling with `TextEditingController`**
+- `TextEditingController` is used to manage user input dynamically.
+- It enables real-time updates and easy manipulation of the entered values.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### ** Structured Form Input with `TextFormField`**
+- Uses `TextFormField` to ensure an responsive input experience.
+- `keyboardType` is set to `TextInputType.number` to restrict input to numeric values only.
+- Includes input validation to prevent incorrect or missing values.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Tech Stack
+- **Framework:** Flutter
+- **Language:** Dart
+- **Widgets Used:** `TextEditingController`, `TextFormField`, `Row`, `Column`, `ElevatedButton`  
