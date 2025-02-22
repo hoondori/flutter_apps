@@ -1,16 +1,34 @@
-# texi_mgmt_app
+# Taxi Service App (Flutter)
 
-A new Flutter project.
+## Overview
+This project is a Flutter-based mobile application designed to provide an intuitive and efficient taxi service experience. The app focuses on a structured layout, smooth scrolling, and dynamic content rendering.
 
-## Getting Started
+## Home Page Features
+- **Taxi Selection:** Different taxi types are displayed as icons, allowing users to select their preferred option.
+- **Image Carousel:** A horizontally scrolling image slider, designed to accommodate future advertisement banners.
+- **Event Notices:** A structured list of ongoing promotions and important updates displayed at the bottom.
 
-This project is a starting point for a Flutter application.
+## Development Approach
+The app leverages Flutter’s powerful UI components to ensure a clean and professional user experience.
 
-A few resources to get you started if this is your first Flutter project:
+### Key Design Principles
+1. **Grid-Based Layout**
+    - Uses `Row` and `Column` widgets to structure content efficiently.
+    - Ensures a well-organized interface adaptable to various screen sizes.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+2. **Smooth Horizontal Scrolling**
+    - Implements `CarouselSlider` to create a seamless and interactive scrolling experience.
+    - Designed to display promotional content dynamically.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+3. **Scrollable Notice List**
+    - Uses `ListView` to present event notifications in a structured manner.
+    - Ensures scalability as more updates are added over time.
+
+## Work in Progress
+- Additional pages are currently under development.
+- Future updates will include more advanced features such as real-time ride tracking and payment integration.
+
+## Tech Stack
+- **Framework:** Flutter
+- **UI Components:** Row, Column, CarouselSlider, ListView
+- **Language:** Dart
