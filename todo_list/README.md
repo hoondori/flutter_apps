@@ -1,16 +1,30 @@
-# todo_list
+# To-Do Management Application
 
-A new Flutter project.
+## Overview
+The **To-Do Management App** is a Flutter-based productivity tool designed to help users efficiently manage their daily tasks. The app allows users to add, complete, and delete tasks seamlessly while maintaining a clean and user-friendly interface.
 
-## Getting Started
+## Features
+- **Task List Display:** View all pending and completed tasks in an organized list.
+- **Task Addition:** Easily add new tasks to the list.
+- **Task Completion:** Mark tasks as completed by clicking on them.
+- **Task Deletion:** Remove tasks from the list by clicking the trash icon.
 
-This project is a starting point for a Flutter application.
+## Design & Implementation
 
-A few resources to get you started if this is your first Flutter project:
+### **1️⃣ Responsive Layout with `Expanded`**
+- `Expanded` is used within `Row`, `Column`, and `Flex` to efficiently utilize available space.
+- Ensures a dynamic and adaptive UI across various screen sizes.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### **2️⃣ Conditional UI Rendering with Ternary Operator (`? :`)**
+- Uses a ternary operator to switch between different widget states.
+- Dynamically updates UI when a task is marked as complete or incomplete.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### **3️⃣ Firestore Integration for Persistent Data Storage**
+- Tasks are stored in Firestore, providing real-time sync and cloud-based data management.
+- Ensures data persistence across app sessions.
+
+## Tech Stack
+- **Framework:** Flutter
+- **Language:** Dart
+- **Database:** Firestore (Cloud Firestore)
+- **Widgets Used:** `Expanded`, `ListView` 
