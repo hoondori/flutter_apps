@@ -40,15 +40,4 @@ This App is a simple application for managing an animal list. Users can view the
     - Ensures automatic scrolling for long lists.
     - Prevents items from being cut off regardless of screen size.
 
----
-
-## Installation & Execution
-1. Open the project in Android Studio.
-2. Run the `main.dart` file to start the application.
-3. View the animal list and try adding new animals!
-
----
-
-## Conclusion
-This app is designed to provide a simple and efficient way to manage an animal list using intuitive UI and tab transitions. Key Flutter concepts such as `TabController`, `ListView`, and `SingleTickerProviderStateMixin` have been applied for optimal performance and usability. Users can easily add and view data, making it a useful and extendable project!
 
