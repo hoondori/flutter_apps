@@ -1,16 +1,22 @@
-# android_native
+#  Flutter Native API Integration Example
 
-A new Flutter project.
+## Overview
+This Flutter project demonstrates how to call Android native APIs using `MethodChannel`. The `NativeApp` widget establishes a `MethodChannel`, while the `MainActivity` in `android/app/src/main/kotlin/` implements multiple methods for native functionality.
 
-## Getting Started
+## Features
+1. **Get Device Information**: The `getDeviceInfo` method accesses the Android `Build` object to retrieve device name, brand, model, and more.
+2. **Encrypt & Decrypt Text**: The `getEncrypt` and `getDecrypt` methods send user-input text to Android's `Base64` utility for encryption and decryption.
 
-This project is a starting point for a Flutter application.
+## Implementation & Design
+- **MethodChannel Usage**:
+    - `MethodChannel` is used in Flutter to communicate with the native Android code.
+    - The channel allows calling platform-specific methods from Dart.
+- **Configuring `MainActivity`**:
+    - `configureFlutterEngine` is overridden in `MainActivity` to set up the `MethodChannel`.
+    - The native implementation processes method calls and returns results to Flutter.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Key Components & Concepts
+- **`MethodChannel`** → Enables communication between Flutter and Android native code.
+- **`configureFlutterEngine`** → Used in `MainActivity` to register the method channel.
+- **Android `Build` API** → Retrieves device information.
+- **Android `Base64` Utility** → Handles text encryption and decryption.
