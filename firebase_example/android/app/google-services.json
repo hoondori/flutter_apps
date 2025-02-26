@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "585640335876",
+    "project_id": "flutterexample-30a4a",
+    "storage_bucket": "flutterexample-30a4a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:585640335876:android:d809ce2eb0f3265a2b7351",
+        "android_client_info": {
+          "package_name": "com.rollcake.firebase_example"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrKpYciGBgAPbd2etCd5r0dP6C8HiuoaU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
