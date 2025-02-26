@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "649127289913",
+    "project_id": "modutour-58868",
+    "storage_bucket": "modutour-58868.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:649127289913:android:176a7071711aa6ec8b19e8",
+        "android_client_info": {
+          "package_name": "com.example.tour_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8mfM56bTBdux9h6rxTmDQX1xboCFRxbo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
