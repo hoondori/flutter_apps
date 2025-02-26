@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'main/favoritePage.dart';
 import 'main/settingPage.dart';
 import 'main/mapPage.dart';
+import 'package:sqflite/sqflite.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+  MainPage({super.key, required this.database});
+
+  final Future<Database> database;
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -41,8 +44,8 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
     return Scaffold(
       body: TabBarView(
         children: [
-          MapPage(),
-          FavoritePage(),
+          MapPage(database: widget.database),
+          FavoritePage(database: widget.database),
           SettingPage(),
         ],
         controller: _controller,

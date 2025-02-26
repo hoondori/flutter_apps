@@ -11,14 +11,14 @@ class TourData {
   var mapy;
   String? imagePath;
 
-  TourData(this.id, this.title, this.tel, this.zipcode, this.address, this.mapx, this.mapy, this.imagePath);
+  TourData({this.id, this.title, this.tel, this.zipcode, this.address, this.mapx, this.mapy, this.imagePath});
 
   TourData.fromJson(Map data) {
-    id = data['id'] ?? 'No id';
+    id = data['id'] ?? 1;
     title = data['title'] ?? 'No title';
     tel = data['tel'] ?? 'No tel';
     zipcode = data['zipcode'] ?? 'No zipcode';
-    address = data['address'] ?? 'No address';
+    address = data['addr1'] ?? 'No address';
     mapx = data['mapx'] ?? 'No mapx';
     mapy = data['mapy'] ?? 'No mapy';
     imagePath = data['firstimage'] ?? null;
