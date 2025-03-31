@@ -1,3 +1,4 @@
+import 'package:carrot_market/src/screens/feed/index.dart';
 import 'package:flutter/material.dart';
 
 final List<BottomNavigationBarItem> myTabs = <BottomNavigationBarItem>[
@@ -8,7 +9,7 @@ final List<BottomNavigationBarItem> myTabs = <BottomNavigationBarItem>[
 ];
 
 final List<Widget> myTabItems = [
-  Center(child: Text("홈"),),
+  FeedIndex(),
   Center(child: Text("동네"),),
   Center(child: Text("채팅"),),
   Center(child: Text("마이"),),
@@ -30,35 +31,9 @@ class _HomeState extends State<Home> {
     });
   }
 
-  showMore(BuildContext context) {
-    return Container(
-      color: Colors.grey,
-      height: 200,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        title: Text('내 동네'),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.search)
-          ),
-          IconButton( // 더보기
-            onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                builder: (context) => showMore(context),
-              );
-            },
-            icon: Icon(Icons.notifications_none_rounded)
-          ),
-        ],
-      ),
       bottomNavigationBar: BottomNavigationBar(
         items: myTabs,
         selectedItemColor: Colors.black,
