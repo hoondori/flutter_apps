@@ -1,10 +1,13 @@
+import 'package:carrot_market/src/screens/feed/edit.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 // 이미지 크기
 const double _imageSize = 110;
 
 class FeedListItem extends StatelessWidget {
-  const FeedListItem({super.key});
+  final Map item;
+  const FeedListItem(this.item, {super.key});
 
 
   Widget drawImage(BuildContext context) {
@@ -26,8 +29,9 @@ class FeedListItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // 판매할 물건 재목
             Text(
-              '판매할 물건의 제목',
+              item['title'],
               overflow: TextOverflow.ellipsis,
               style: TextStyle(fontSize: 16),
             ),
@@ -43,10 +47,12 @@ class FeedListItem extends StatelessWidget {
                 ),
               ],
             ),
+            // 물품 가격
             Text(
-              '물품 가격',
+              item['price'].toString(),
               style: TextStyle(
-                  fontSize: 16, fontWeight: FontWeight.bold),
+                fontSize: 16, fontWeight: FontWeight.bold
+              ),
             ),
           ],
         ),
@@ -89,7 +95,13 @@ class FeedListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => FeedEdit(item: item)),
+        // );
+        Get.to(() => FeedEdit(item: item));
+      },
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Stack(
@@ -115,7 +127,7 @@ class FeedListItem extends StatelessWidget {
               ],
             ),
 
-            // 채팅, 관심물건 창 배치
+            // 채팅, 관심 물건 창 배치
             drawLowerRightIcons(context),
           ],
         ),
