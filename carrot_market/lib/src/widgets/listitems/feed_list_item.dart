@@ -1,3 +1,4 @@
+import 'package:carrot_market/src/models/feed_model.dart';
 import 'package:carrot_market/src/screens/feed/edit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,7 +7,7 @@ import 'package:get/get.dart';
 const double _imageSize = 110;
 
 class FeedListItem extends StatelessWidget {
-  final Map item;
+  final FeedModel item;
   const FeedListItem(this.item, {super.key});
 
 
@@ -31,7 +32,7 @@ class FeedListItem extends StatelessWidget {
           children: [
             // 판매할 물건 재목
             Text(
-              item['title'],
+              item.title,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(fontSize: 16),
             ),
@@ -49,7 +50,7 @@ class FeedListItem extends StatelessWidget {
             ),
             // 물품 가격
             Text(
-              item['price'].toString(),
+              item.price.toString(),
               style: TextStyle(
                 fontSize: 16, fontWeight: FontWeight.bold
               ),

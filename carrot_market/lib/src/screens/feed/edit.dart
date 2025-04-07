@@ -1,9 +1,10 @@
 import 'package:carrot_market/src/controllers/feed_controller.dart';
+import 'package:carrot_market/src/models/feed_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class FeedEdit extends StatefulWidget {
-  final Map item;
+  final FeedModel item;
   const FeedEdit({required this.item, super.key});
 
   @override
@@ -18,12 +19,12 @@ class _FeedEditState extends State<FeedEdit> {
   TextEditingController? priceController;
 
   void _submit() {
-    final updatedItem = {
-      ...widget.item,
+    final updatedItem = FeedModel.parse({
+      'id': widget.item.id,
       'title': titleController!.text,
-      'price': int.tryParse(priceController!.text)
-          ?? widget.item['price']
-    };
+      'content': widget.item.content,
+      'price': int.tryParse(priceController!.text) ?? widget.item.price
+    });
 
     feedController.updateData(updatedItem);
 
@@ -33,8 +34,8 @@ class _FeedEditState extends State<FeedEdit> {
   @override
   void initState() {
     super.initState();
-    titleController = TextEditingController(text: widget.item['title']);
-    priceController = TextEditingController(text: widget.item['price'].toString());
+    titleController = TextEditingController(text: widget.item.title);
+    priceController = TextEditingController(text: widget.item.price.toString());
   }
 
   @override

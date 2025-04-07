@@ -21,7 +21,7 @@ class Intro extends StatelessWidget {
             ElevatedButton(
               onPressed: () => {
                 //Navigator.pushNamed(context, "/register"),
-                Navigator.pushNamed(context, "/feed/1"),
+                //Navigator.pushNamed(context, "/feed/1"),
                 // Navigator.push(
                 //   context,
                 //   MaterialPageRoute(

@@ -15,8 +15,15 @@ class FeedIndex extends StatefulWidget {
 
 class _FeedIndexState extends State<FeedIndex> {
 
-  // state management by GetX
+  int _currentPage = 1;
   final FeedController feedController = Get.put(FeedController());
+
+  @override
+  void initState() {
+    super.initState();
+    feedController.feedIndex(_currentPage);
+  }
+
 
   @override
   Widget build(BuildContext context) {
