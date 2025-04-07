@@ -1,4 +1,5 @@
 import 'package:carrot_market/src/controllers/auth_controller.dart';
+import 'package:carrot_market/src/screens/auth/register_form.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

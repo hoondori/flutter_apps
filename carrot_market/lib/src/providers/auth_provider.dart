@@ -10,7 +10,7 @@ class AuthProvider extends Provider {
   }
 
   // 휴대폰 인증 요청
-  Future<Map> verifyPhoneCode(String code) async {
+  Future<Map> verifyPhoneNumber(String code) async {
     final Response response = await post('/auth/phone', {'code': code});
     return response.body;
   }

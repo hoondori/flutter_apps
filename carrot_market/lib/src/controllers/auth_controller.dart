@@ -26,20 +26,31 @@ class AuthController extends GetxController {
 
   // 휴대폰 인증 코드 요청
   Future<void> requestVerificationCode(String phone) async {
-    Map body = await authProvider.requestPhoneCode(phone) {
-      if (body['result'] == 'ok') {
-        phoneNumber = phone; // 인증받은 번호 기억
+    Map body = await authProvider.requestPhoneCode(phone);
+    if (body['result'] == 'ok') {
+      phoneNumber = phone; // 인증받은 번호 기억
 
-        // 인증 코드의 유효기간 정보를 가지고 count down timer 활성화
-        DateTime expiryTime = DateTime.parse(body['expired']);
-        _startCountDown(expiryTime);
-      }
+      // 인증 코드의 유효기간 정보를 가지고 count down timer 활성화
+      DateTime expiryTime = DateTime.parse(body['expired']);
+      _startCountDown(expiryTime);
     }
   }
 
+  // 휴대폰 인증
+  Future<bool> verifyPhoneNumber(String userInputCode) async {
+    Map body = await authProvider.verifyPhoneNumber(userInputCode);
+    if (body['result'] == 'ok') {
+      return true;
+    }
+    Get.snackbar('인증번호 에러', body['message'],
+        snackPosition: SnackPosition.BOTTOM);
+    return false;
+  }
+
+
   // 회원 가입
   Future<bool> register(String password, String name, int? profile) async {
-    Map body = await authProvider.register(phoneNumber, password, name, profile);
+    Map body = await authProvider.register(phoneNumber!, password, name, profile);
     if (body['result'] == 'ok') {
       return true;
     }

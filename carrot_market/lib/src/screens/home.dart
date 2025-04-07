@@ -1,4 +1,5 @@
 import 'package:carrot_market/src/screens/feed/index.dart';
+import 'package:carrot_market/src/screens/my/mypage.dart';
 import 'package:flutter/material.dart';
 
 final List<BottomNavigationBarItem> myTabs = <BottomNavigationBarItem>[
@@ -12,7 +13,7 @@ final List<Widget> myTabItems = [
   FeedIndex(),
   Center(child: Text("동네"),),
   Center(child: Text("채팅"),),
-  Center(child: Text("마이"),),
+  MyPage(),
 ];
 
 class Home extends StatefulWidget {
