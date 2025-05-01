@@ -1,9 +1,11 @@
 import 'package:bamtol_market_app/common/controller/authentication_controller.dart';
+import 'package:bamtol_market_app/common/controller/bottom_nav_controller.dart';
 import 'package:bamtol_market_app/common/controller/data_load_controller.dart';
 import 'package:bamtol_market_app/firebase_options.dart';
 import 'package:bamtol_market_app/home/page/home_page.dart';
 import 'package:bamtol_market_app/login/controller/login_controller.dart';
 import 'package:bamtol_market_app/login/page/login_page.dart';
+import 'package:bamtol_market_app/root.dart';
 import 'package:bamtol_market_app/splash/controller/splash_controller.dart';
 import 'package:bamtol_market_app/user/repository/authentication_repository.dart';
 import 'package:bamtol_market_app/user/repository/user_repository.dart';
@@ -56,6 +58,7 @@ class MyApp extends StatelessWidget {
         Get.put(authenticationRepository);
         Get.put(SplashController());
         Get.put(DataLoadController());
+        Get.put(BottomNavController());
         Get.put(AuthenticationController(
             authenticationRepository,
             userRepository
@@ -64,7 +67,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       getPages: [
         GetPage(name: '/', page: () => const App()),
-        GetPage(name: '/home', page: () => const HomePage()),
+        GetPage(name: '/home', page: () => const Root()),
         GetPage(
           name: '/login',
           page: () => const LoginPage(),
