@@ -7,6 +7,7 @@ import 'package:bamtol_market_app/login/page/login_page.dart';
 import 'package:bamtol_market_app/splash/controller/splash_controller.dart';
 import 'package:bamtol_market_app/user/repository/authentication_repository.dart';
 import 'package:bamtol_market_app/user/repository/user_repository.dart';
+import 'package:bamtol_market_app/user/signup/controller/signup_controller.dart';
 import 'package:bamtol_market_app/user/signup/page/signup_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -71,8 +72,17 @@ class MyApp extends StatelessWidget {
             Get.lazyPut<LoginController>(() => LoginController(Get.find<AuthenticationRepository>()));
           })
         ),
-        GetPage(name: '/signup', page: () => const SignupPage())
-      ],
+        GetPage(
+          name: '/signup/:uid',
+          page: () => const SignupPage(),
+          binding: BindingsBuilder((){
+            Get.create<SignupController>(
+              () => SignupController(Get.find<UserRepository>(),
+                Get.parameters['uid'] as String),
+            );
+          })
+        ),
+      ]
     );
   }
 }

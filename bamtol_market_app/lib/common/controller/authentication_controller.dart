@@ -26,9 +26,13 @@ class AuthenticationController extends GetxController {
       // user가 db에 등록되어 있는지 확인해서
       var result = await _userRepository.findUserOne(user.uid!);
       if (result == null) { // 등록되지 않았다면 회원 가입으로 유도
+        // user.uid는 없지만 로그인한 user로 모델을 만든다.
+        userModel(user);
         status(AuthenticationStatus.unauthenticated);
       } else { // 등록되어 있다면 Home으로 이동
         status(AuthenticationStatus.authentication);
+        // 찾은 user.uid 로 모델을 만든다.
+        userModel(result);
       }
     }
   }

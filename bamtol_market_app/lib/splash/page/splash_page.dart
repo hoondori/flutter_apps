@@ -78,7 +78,9 @@ class SplashPage extends GetView<SplashController> {
                 Get.offNamed("/home");
                 break;
               case AuthenticationStatus.unauthenticated:
-                Get.offNamed("/signup");
+                // 로그인한 uid 를 회원가입 페이지에 넘겨준다.
+                var userModel = Get.find<AuthenticationController>().userModel.value;
+                Get.offNamed("/signup/${userModel.uid}");
                 break;
               case AuthenticationStatus.unknown:
                 Get.offNamed("/login");

@@ -18,4 +18,22 @@ class UserRepository extends GetxService {
       return null;
     }
   }
+
+  Future<bool> checkDuplicationNickName(String nickName) async {
+    try {
+      var doc = await db.collection("users").where('nickname', isEqualTo: nickName).get();
+      return doc.docs.isEmpty;
+    } catch(e) {
+      return false;
+    }
+  }
+
+  Future<String?> signup(UserModel user) async {
+    try {
+      var result = await db.collection("users").add(user.toJson());
+      return result.id;
+    } catch (e) {
+      return null;
+    }
+  }
 }
