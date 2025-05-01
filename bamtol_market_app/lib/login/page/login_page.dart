@@ -1,8 +1,10 @@
-import 'package:bamtol_market_app/common/app_font.dart';
-import 'package:bamtol_market_app/common/btn.dart';
+import 'package:bamtol_market_app/common/components/app_font.dart';
+import 'package:bamtol_market_app/common/components/btn.dart';
+import 'package:bamtol_market_app/login/controller/login_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends GetView<LoginController> {
   const LoginPage({super.key});
 
   Widget _loginView() {
@@ -53,7 +55,7 @@ class LoginPage extends StatelessWidget {
       child: Column(
         children: [
           Btn(
-            onTap: () {},
+            onTap: controller.googleLogin,
             color: Colors.white,
             child: Row(
               children: [
@@ -65,7 +67,7 @@ class LoginPage extends StatelessWidget {
           ),
           const SizedBox(height: 15,),
           Btn(
-            onTap: () {},
+            onTap: controller.appleLogin,
             color: Colors.black,
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Row(

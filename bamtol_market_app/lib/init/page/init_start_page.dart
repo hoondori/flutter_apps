@@ -1,5 +1,5 @@
-import 'package:bamtol_market_app/common/app_font.dart';
-import 'package:bamtol_market_app/common/btn.dart';
+import 'package:bamtol_market_app/common/components/app_font.dart';
+import 'package:bamtol_market_app/common/components/btn.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

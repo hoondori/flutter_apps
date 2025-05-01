@@ -1,4 +1,4 @@
-import 'package:bamtol_market_app/common/app_font.dart';
+import 'package:bamtol_market_app/common/components/app_font.dart';
 import 'package:bamtol_market_app/common/components/getx_listener.dart';
 import 'package:bamtol_market_app/common/controller/authentication_controller.dart';
 import 'package:bamtol_market_app/common/controller/data_load_controller.dart';
@@ -78,6 +78,7 @@ class SplashPage extends GetView<SplashController> {
                 Get.offNamed("/home");
                 break;
               case AuthenticationStatus.unauthenticated:
+                Get.offNamed("/signup");
                 break;
               case AuthenticationStatus.unknown:
                 Get.offNamed("/login");

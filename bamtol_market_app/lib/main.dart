@@ -2,9 +2,13 @@ import 'package:bamtol_market_app/common/controller/authentication_controller.da
 import 'package:bamtol_market_app/common/controller/data_load_controller.dart';
 import 'package:bamtol_market_app/firebase_options.dart';
 import 'package:bamtol_market_app/home/page/home_page.dart';
+import 'package:bamtol_market_app/login/controller/login_controller.dart';
 import 'package:bamtol_market_app/login/page/login_page.dart';
 import 'package:bamtol_market_app/splash/controller/splash_controller.dart';
 import 'package:bamtol_market_app/user/repository/authentication_repository.dart';
+import 'package:bamtol_market_app/user/repository/user_repository.dart';
+import 'package:bamtol_market_app/user/signup/page/signup_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +36,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     var authenticationRepository =
         AuthenticationRepository(FirebaseAuth.instance);
+    var db = FirebaseFirestore.instance;
+    var userRepository = UserRepository(db);
     return GetMaterialApp(
       title: '당근마켓 클론 코딩',
       theme: ThemeData(
@@ -45,15 +51,27 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xff212123)
       ),
       initialBinding: BindingsBuilder((){
+        Get.put(userRepository);
+        Get.put(authenticationRepository);
         Get.put(SplashController());
         Get.put(DataLoadController());
-        Get.put(AuthenticationController(authenticationRepository));
+        Get.put(AuthenticationController(
+            authenticationRepository,
+            userRepository
+        ));
       }),
       initialRoute: '/',
       getPages: [
         GetPage(name: '/', page: () => const App()),
         GetPage(name: '/home', page: () => const HomePage()),
-        GetPage(name: '/login', page: () => const LoginPage()),
+        GetPage(
+          name: '/login',
+          page: () => const LoginPage(),
+          binding: BindingsBuilder(() {
+            Get.lazyPut<LoginController>(() => LoginController(Get.find<AuthenticationRepository>()));
+          })
+        ),
+        GetPage(name: '/signup', page: () => const SignupPage())
       ],
     );
   }

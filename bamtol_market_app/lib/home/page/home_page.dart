@@ -1,4 +1,4 @@
-import 'package:bamtol_market_app/common/app_font.dart';
+import 'package:bamtol_market_app/common/components/app_font.dart';
 import 'package:flutter/material.dart';
 import 'package:bamtol_market_app/common/controller/authentication_controller.dart';
 import 'package:get/get.dart';
