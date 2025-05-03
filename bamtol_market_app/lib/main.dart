@@ -5,6 +5,9 @@ import 'package:bamtol_market_app/firebase_options.dart';
 import 'package:bamtol_market_app/home/page/home_page.dart';
 import 'package:bamtol_market_app/login/controller/login_controller.dart';
 import 'package:bamtol_market_app/login/page/login_page.dart';
+import 'package:bamtol_market_app/product/repository/product_repository.dart';
+import 'package:bamtol_market_app/product/write/product_write_controller.dart';
+import 'package:bamtol_market_app/product/write/product_write_page.dart';
 import 'package:bamtol_market_app/root.dart';
 import 'package:bamtol_market_app/splash/controller/splash_controller.dart';
 import 'package:bamtol_market_app/user/repository/authentication_repository.dart';
@@ -63,6 +66,7 @@ class MyApp extends StatelessWidget {
             authenticationRepository,
             userRepository
         ));
+        Get.put(ProductRepository(db));
       }),
       initialRoute: '/',
       getPages: [
@@ -85,6 +89,17 @@ class MyApp extends StatelessWidget {
             );
           })
         ),
+        GetPage(
+          name: '/product/write',
+          page: () => ProductWritePage(),
+          binding: BindingsBuilder(
+            () {
+              Get.put(ProductWriteController(
+                Get.find<AuthenticationController>().userModel.value,
+                Get.find<ProductRepository>()));
+            }
+          )
+        )
       ]
     );
   }
