@@ -1,5 +1,6 @@
 import 'package:bamtol_market_app/common/components/app_font.dart';
 import 'package:bamtol_market_app/common/components/checkbox.dart';
+import 'package:bamtol_market_app/common/components/multiful_image_view.dart';
 import 'package:bamtol_market_app/common/components/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -107,7 +108,9 @@ class _PhotoSelectedView extends StatelessWidget {
 
   Widget _photoSelectIcon() {
     return GestureDetector(
-      onTap: () {},
+      onTap: () async {
+        await Get.to(() => MultifulImageView());
+      },
       child: Container(
         width: 77, height: 77,
         decoration: BoxDecoration(
