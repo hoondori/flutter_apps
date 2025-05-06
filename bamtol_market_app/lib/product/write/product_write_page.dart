@@ -2,9 +2,11 @@ import 'package:bamtol_market_app/common/components/app_font.dart';
 import 'package:bamtol_market_app/common/components/checkbox.dart';
 import 'package:bamtol_market_app/common/components/multiful_image_view.dart';
 import 'package:bamtol_market_app/common/components/textfield.dart';
+import 'package:bamtol_market_app/product/write/product_write_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:photo_manager/photo_manager.dart';
 
 class _HopeTradeLocationMap extends StatelessWidget {
   const _HopeTradeLocationMap({super.key});
@@ -103,13 +105,19 @@ class _CategorySelectView extends StatelessWidget {
 }
 
 
-class _PhotoSelectedView extends StatelessWidget {
+class _PhotoSelectedView extends GetView<ProductWriteController> {
   const _PhotoSelectedView({super.key});
 
   Widget _photoSelectIcon() {
     return GestureDetector(
       onTap: () async {
-        await Get.to(() => MultifulImageView());
+        // 이전 선택된 이미지들을 멀티뷰에 넣어주어서 선택 여부를 표기되도록 한다.
+        var selectedImages = await Get.to<List<AssetEntity>?>(() =>
+          MultifulImageView(
+            initImages: controller.selectedImages,
+          )
+        );
+        controller.changeSelectedImages(selectedImages);
       },
       child: Container(
         width: 77, height: 77,
@@ -122,10 +130,16 @@ class _PhotoSelectedView extends StatelessWidget {
           children: [
             SvgPicture.asset("assets/svg/icons/camera.svg"),
             const SizedBox(height: 5,),
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                AppFont('0', size:13, color: Color(0xff868B95)),
+                Obx(
+                  () => AppFont(
+                      '${controller.selectedImages.length}',
+                      size:13,
+                      color: Color(0xff868B95)
+                  ),
+                ),
                 AppFont('/10', size:13, color: Color(0xff868B95)),
               ],
             )
@@ -150,24 +164,34 @@ class _PhotoSelectedView extends StatelessWidget {
                   borderRadius: BorderRadius.circular(4),
                   child: SizedBox(
                     width: 67, height: 67,
-                    child: Container(
-                      color: Colors.red,
-                      child: Center(child: AppFont(index.toString())),
+                    child: FutureBuilder(
+                      future: controller.selectedImages[index].file,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return Image.file(
+                            snapshot.data!, fit:BoxFit.cover,
+                          );
+                        } else {
+                          return Container();
+                        }
+                      },
                     ),
                   ),
                 ),
               ),
-              Positioned(
+              Positioned( // 이미지 우상단 삭제 아이콘
                 right: 10,
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    controller.deleteImage(index);
+                  },
                   child: SvgPicture.asset("assets/svg/icons/remove.svg"),
                 )
               )
             ],
           );
         },
-        itemCount: 5,
+        itemCount: controller.selectedImages.length,
       ),
     );
   }
