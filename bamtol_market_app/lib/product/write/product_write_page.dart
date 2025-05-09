@@ -2,8 +2,11 @@ import 'package:bamtol_market_app/common/components/app_font.dart';
 import 'package:bamtol_market_app/common/components/checkbox.dart';
 import 'package:bamtol_market_app/common/components/multiful_image_view.dart';
 import 'package:bamtol_market_app/common/components/textfield.dart';
+import 'package:bamtol_market_app/product/write/product_category_selector.dart';
+import 'package:bamtol_market_app/product/write/product_category_type.dart';
 import 'package:bamtol_market_app/product/write/product_write_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
@@ -55,7 +58,7 @@ class _ProductDescription extends StatelessWidget {
 }
 
 
-class _PriceSettingView extends StatelessWidget {
+class _PriceSettingView extends GetView<ProductWriteController> {
   const _PriceSettingView({super.key});
 
   @override
@@ -65,16 +68,25 @@ class _PriceSettingView extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: CommonTextField(
-              hintColor: Color(0xff6D7179),
-              hintText: '\$ 가격 (선택사항)',
-              textInputType: TextInputType.number,
+            child: Obx(
+              () => CommonTextField(
+                hintColor: Color(0xff6D7179),
+                hintText: '\$ 가격 (선택사항)',
+                textInputType: TextInputType.number,
+                initText: controller.product.value.productPrice.toString(),
+                onChange: controller.changePrice,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'^[0-9]+$')),
+                ],
+              ),
             )
           ),
-          CheckBox(
-            label: '나늠',
-            isChecked: true,
-            toggleCallback: (){}
+          Obx(
+            () => CheckBox(
+              label: '나늠',
+              isChecked: controller.product.value.isFree ?? false,
+              toggleCallback: controller.changeIsFreeProduct,
+            ),
           )
         ],
       ),
@@ -83,19 +95,28 @@ class _PriceSettingView extends StatelessWidget {
 }
 
 
-class _CategorySelectView extends StatelessWidget {
+class _CategorySelectView extends GetView<ProductWriteController> {
   const _CategorySelectView({super.key});
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
       child: GestureDetector(
-        onTap: () async {},
+        onTap: () async {
+          var selectedCategoryType =
+            await Get.dialog<ProductCategoryType?>(
+              ProductCategorySelector(initType: controller.product.value.categoryType));
+          controller.changeCategoryType(selectedCategoryType);
+        },
         behavior: HitTestBehavior.translucent,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            AppFont('카테고리 선택', size:16, color: Colors.white),
+            AppFont(
+              controller.product.value.categoryType!.name,
+              size:16,
+              color: Colors.white
+            ),
             SvgPicture.asset("assets/svg/icons/right.svg")
           ],
         ),
@@ -212,7 +233,7 @@ class _PhotoSelectedView extends GetView<ProductWriteController> {
   }
 }
 
-class _ProductTitleView extends StatelessWidget {
+class _ProductTitleView extends GetView<ProductWriteController> {
   const _ProductTitleView({super.key});
 
   @override
@@ -233,7 +254,9 @@ class _ProductTitleView extends StatelessWidget {
             borderSide: BorderSide.none,
           )
         ),
-        onChanged: (v) {},
+        onChanged: (value) {
+          controller.changeTitle(value);
+        },
       ),
     );
   }
