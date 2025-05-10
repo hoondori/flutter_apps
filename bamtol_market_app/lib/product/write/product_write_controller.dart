@@ -1,4 +1,5 @@
 import 'package:bamtol_market_app/common/components/app_font.dart';
+import 'package:bamtol_market_app/common/controller/common_layout_controller.dart';
 import 'package:bamtol_market_app/common/model/product.dart';
 import 'package:bamtol_market_app/common/repository/cloud_firebase_storage_repository.dart';
 import 'package:bamtol_market_app/product/repository/product_repository.dart';
@@ -85,9 +86,17 @@ class ProductWriteController extends GetxController {
   }
 
   submit() async {
+    // 이미지 업로드 중에 circular progress
+    CommonLayoutController.to.loading(true);
     var downloadUrls = await uploadImages(selectedImages);
     product(product.value.copyWith(imageUrls: downloadUrls));
     var saveId = await _productRepository.saveProduct(product.value.toMap());
+
+    // 디버깅용 - 이미지 업로드 시간을 흉내내서 ...
+    await Future.delayed(Duration(seconds: 2));
+
+    CommonLayoutController.to.isLoading(false);
+
     if (saveId != null) {
       await showDialog(
         context: Get.context!,

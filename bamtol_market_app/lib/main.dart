@@ -1,5 +1,6 @@
 import 'package:bamtol_market_app/common/controller/authentication_controller.dart';
 import 'package:bamtol_market_app/common/controller/bottom_nav_controller.dart';
+import 'package:bamtol_market_app/common/controller/common_layout_controller.dart';
 import 'package:bamtol_market_app/common/controller/data_load_controller.dart';
 import 'package:bamtol_market_app/firebase_options.dart';
 import 'package:bamtol_market_app/home/page/home_page.dart';
@@ -70,6 +71,7 @@ class MyApp extends StatelessWidget {
         ));
         Get.put(ProductRepository(db));
         Get.put(CloudFirebaseRepository(FirebaseStorage.instance));
+        Get.put(CommonLayoutController());
       }),
       initialRoute: '/',
       getPages: [

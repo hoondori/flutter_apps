@@ -1,5 +1,6 @@
 import 'package:bamtol_market_app/app.dart';
 import 'package:bamtol_market_app/common/components/app_font.dart';
+import 'package:bamtol_market_app/common/layout/common_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:bamtol_market_app/common/controller/authentication_controller.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -77,7 +78,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return CommonLayout(
       appBar: AppBar(
         leadingWidth: Get.width * 0.6,
         leading: Padding(

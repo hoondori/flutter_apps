@@ -3,6 +3,7 @@ import 'package:bamtol_market_app/common/components/checkbox.dart';
 import 'package:bamtol_market_app/common/components/multiful_image_view.dart';
 import 'package:bamtol_market_app/common/components/textfield.dart';
 import 'package:bamtol_market_app/common/components/trade_location_map.dart';
+import 'package:bamtol_market_app/common/layout/common_layout.dart';
 import 'package:bamtol_market_app/product/write/product_category_selector.dart';
 import 'package:bamtol_market_app/product/write/product_category_type.dart';
 import 'package:bamtol_market_app/product/write/product_write_controller.dart';
@@ -303,7 +304,7 @@ class ProductWritePage extends GetView<ProductWriteController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return CommonLayout(
       appBar: AppBar(
         leading: GestureDetector(
           onTap: Get.back,
