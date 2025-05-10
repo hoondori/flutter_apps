@@ -1,50 +1,79 @@
 import 'package:bamtol_market_app/product/write/product_category_type.dart';
+import 'package:bamtol_market_app/user/model/user_model.dart';
 import 'package:equatable/equatable.dart';
 import 'package:latlong2/latlong.dart';
 
 class Product extends Equatable {
+  final String? docId;
   final String? title;
   final String? description;
   final int? productPrice;
   final bool? isFree;
-  final ProductCategoryType? categoryType;
+  final List<String>? imageUrls;
+  final UserModel? owner;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+  final int? viewCount;
+  final ProductStatusType? status;
   final LatLng? wantTradeLocation;
   final String? wantTradeLocationLabel;
-  final List<String>? imageUrls;
+  final ProductCategoryType? categoryType;
+  final List<String>? likers;
 
   const Product({
+    this.docId,
     this.title,
     this.description,
     this.productPrice = 0,
     this.isFree,
-    this.categoryType = ProductCategoryType.none,
+    this.imageUrls,
+    this.createdAt,
+    this.updatedAt,
+    this.viewCount = 0,
     this.wantTradeLocation,
     this.wantTradeLocationLabel,
-    this.imageUrls,
+    this.categoryType = ProductCategoryType.none,
+    this.status = ProductStatusType.sale,
+    this.owner,
+    this.likers,
   });
 
   Map<String, dynamic> toMap() {
     return {
+      'owner': owner!.toJson(),
       'title': title,
       'description': description,
       'productPrice': productPrice,
       'isFree': isFree,
-      'categoryType': categoryType?.code,
+      'imageUrls': imageUrls,
+      'createdAt': createdAt,
+      'updatedAt': DateTime.now(),
+      'status': status!.value,
       'wantTradeLocation': [
         wantTradeLocation?.latitude,
         wantTradeLocation?.longitude,
       ],
       'wantTradeLocationLabel': wantTradeLocationLabel,
-      'imageUrls': imageUrls,
+      'categoryType': categoryType?.code,
+      'likers': likers,
     };
   }
 
   factory Product.fromJson(String docId, Map<String, dynamic> json) {
     return Product(
+      docId: docId,
       title: json['title'],
       description: json['description'],
       productPrice: json['productPrice'],
       isFree: json['isFree'],
+      imageUrls: json['imageUrls'].map<String>((e) => e as String).toList(),
+      createdAt: json['createdAt'] == null ? DateTime.now() : json['createdAt'].toDate(),
+      updatedAt: json['updatedAt'] == null ? DateTime.now() : json['updatedAt'].toDate(),
+      viewCount: json['viewCount'].toInt(),
+      owner: UserModel.fromJson(json['owner']),
+      status: json['status'] == null
+        ? ProductStatusType.sale
+        : ProductStatusType.values.byName(json['status']),
       categoryType: json['categoryType'] == null
         ? ProductCategoryType.none
         : ProductCategoryType.findByCode(json['categoryType']),
@@ -55,25 +84,38 @@ class Product extends Equatable {
         json['wantTradeLocation'][1] != null
         ? LatLng(json['wantTradeLocation'][0], json['wantTradeLocation'][1])
         : null,
-      imageUrls: json['imageUrls'].map<String>((e) => e as String).toList(),
+
     );
   }
 
   Product copyWith({
     String? title,
     String? description,
+    UserModel? owner,
     int? productPrice,
-    bool? isFree,
-    ProductCategoryType? categoryType,
+    int? viewCount,
+    List<String>? imageUrls,
+    List<String>? likers,
+    ProductStatusType? status,
     LatLng? wantTradeLocation,
     String? wantTradeLocationLabel,
-    List<String>? imageUrls,
+    bool? isFree,
+    ProductCategoryType? categoryType,
+    DateTime? createdAt,
+    DateTime? updatedAt,
   }) {
     return Product(
+      docId: docId,
       title: title ?? this.title,
+      owner: owner ?? this.owner,
       description: description ?? this.description,
       productPrice: productPrice ?? this.productPrice,
-      isFree: isFree,
+      isFree: isFree ?? this.isFree,
+      viewCount: viewCount ?? this.viewCount,
+      status: status ?? this.status,
+      likers: likers ?? this.likers,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
       categoryType: categoryType ?? this.categoryType,
       wantTradeLocation: wantTradeLocation ?? this.wantTradeLocation,
       wantTradeLocationLabel: wantTradeLocationLabel ?? this.wantTradeLocationLabel,
@@ -84,9 +126,15 @@ class Product extends Equatable {
   @override
   List<Object?> get props => [
     title,
+    owner,
     description,
     productPrice,
     isFree,
+    createdAt,
+    updatedAt,
+    viewCount,
+    status,
+    likers,
     categoryType,
     wantTradeLocation,
     wantTradeLocationLabel,

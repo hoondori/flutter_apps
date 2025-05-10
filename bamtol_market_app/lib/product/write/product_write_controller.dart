@@ -89,7 +89,12 @@ class ProductWriteController extends GetxController {
     // 이미지 업로드 중에 circular progress
     CommonLayoutController.to.loading(true);
     var downloadUrls = await uploadImages(selectedImages);
-    product(product.value.copyWith(imageUrls: downloadUrls));
+    product(product.value.copyWith(
+      owner: owner,
+      imageUrls: downloadUrls,
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+    ));
     var saveId = await _productRepository.saveProduct(product.value.toMap());
 
     // 디버깅용 - 이미지 업로드 시간을 흉내내서 ...
