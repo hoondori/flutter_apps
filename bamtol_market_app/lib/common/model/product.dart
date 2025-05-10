@@ -69,8 +69,8 @@ class Product extends Equatable {
       imageUrls: json['imageUrls'].map<String>((e) => e as String).toList(),
       createdAt: json['createdAt'] == null ? DateTime.now() : json['createdAt'].toDate(),
       updatedAt: json['updatedAt'] == null ? DateTime.now() : json['updatedAt'].toDate(),
-      viewCount: json['viewCount'].toInt(),
-      owner: UserModel.fromJson(json['owner']),
+      viewCount: json['viewCount'] == null ? 0 : json['viewCount'].toInt(),
+      owner: json['owner'] == null ? null : UserModel.fromJson(json['owner']),
       status: json['status'] == null
         ? ProductStatusType.sale
         : ProductStatusType.values.byName(json['status']),

@@ -1,17 +1,40 @@
 import 'package:bamtol_market_app/app.dart';
 import 'package:bamtol_market_app/common/components/app_font.dart';
 import 'package:bamtol_market_app/common/layout/common_layout.dart';
+import 'package:bamtol_market_app/common/model/product.dart';
+import 'package:bamtol_market_app/home/controller/home_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:bamtol_market_app/common/controller/authentication_controller.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 
-
-class _ProductList extends StatelessWidget {
+class _ProductList extends GetView<HomeController> {
   const _ProductList({super.key});
 
-  Widget _productOne(int index) {
+  Widget subInfo(Product product) {
+    return Row(
+      children: [
+        AppFont(
+          product.owner?.nickName ?? 'default nickname',
+          color: const Color(0xff878993),
+          size: 12,
+        ),
+        const AppFont(
+          ' . ',
+          color: const Color(0xff878993),
+          size: 12,
+        ),
+        AppFont(
+          DateFormat('yyyy.MM.dd').format(product.createdAt!),
+          color: const Color(0xff878993),
+          size: 12,
+        )
+      ],
+    );
+  }
+
+  Widget _productOne(Product product) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -21,7 +44,9 @@ class _ProductList extends StatelessWidget {
             width: 100,
             height: 100,
             child: Image.network(
-              'https://cdn.kgmaeil.net/news/photo/202007/245825_49825_2217.jpg'
+              product.imageUrls != null && product.imageUrls!.isNotEmpty
+                ? product.imageUrls!.first ?? ''
+                : 'https://cdn.kgmaeil.net/news/photo/202007/245825_49825_2217.jpg'
             ),
           ),
         ),
@@ -32,11 +57,12 @@ class _ProductList extends StatelessWidget {
             children: [
               const SizedBox(height: 10,),
               AppFont(
-                'Yammj 상품$index 무료로 드려요 :) ',
+                product.title ?? 'default product title',
                 color: Colors.white,
                 size: 16,
               ),
               const SizedBox(height: 5,),
+              subInfo(product),
               const AppFont(
                 'fly sky - 2025.05.05',
                 size: 12,
@@ -58,16 +84,18 @@ class _ProductList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      padding: const EdgeInsets.only(left: 25.0, top: 20, right: 25),
-      itemBuilder: (context, index) {
-        return _productOne(index);
-      },
-      separatorBuilder: (context, index) => const Padding(
-        padding: EdgeInsets.symmetric(vertical: 10.0),
-        child: Divider(color: Color(0xff3C3C3E)),
+    return Obx(
+      () => ListView.separated(
+        padding: const EdgeInsets.only(left: 25.0, top: 20, right: 25),
+        itemBuilder: (context, index) {
+          return _productOne(controller.productList[index]);
+        },
+        separatorBuilder: (context, index) => const Padding(
+          padding: EdgeInsets.symmetric(vertical: 10.0),
+          child: Divider(color: Color(0xff3C3C3E)),
+        ),
+        itemCount: controller.productList.length,
       ),
-      itemCount: 10
     );
   }
 }
