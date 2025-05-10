@@ -2,6 +2,7 @@ import 'package:bamtol_market_app/common/components/app_font.dart';
 import 'package:bamtol_market_app/common/components/checkbox.dart';
 import 'package:bamtol_market_app/common/components/multiful_image_view.dart';
 import 'package:bamtol_market_app/common/components/textfield.dart';
+import 'package:bamtol_market_app/common/components/trade_location_map.dart';
 import 'package:bamtol_market_app/product/write/product_category_selector.dart';
 import 'package:bamtol_market_app/product/write/product_category_type.dart';
 import 'package:bamtol_market_app/product/write/product_write_controller.dart';
@@ -11,7 +12,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
 
-class _HopeTradeLocationMap extends StatelessWidget {
+class _HopeTradeLocationMap extends GetView<ProductWriteController> {
   const _HopeTradeLocationMap({super.key});
 
   @override
@@ -19,18 +20,46 @@ class _HopeTradeLocationMap extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
       child: GestureDetector(
-        onTap: () {},
+        onTap: () async {
+          var result = await Get.to<Map<String, dynamic>>(
+            TradeLocationMap(
+              label: controller.product.value.wantTradeLocationLabel,
+              location: controller.product.value.wantTradeLocation
+            )
+          );
+          if (result != null) {
+            controller.changeTraceLocationMap(result);
+          }
+        },
         behavior: HitTestBehavior.translucent,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const AppFont('거래 희망 장소', size: 16, color: Colors.white,),
-            Row(
-              children: [
-                const AppFont('장소 선택', size: 13, color: Color(0xff6D7179),),
-                SvgPicture.asset("assets/svg/icons/right.svg"),
-              ],
-            )
+            Obx(
+              () => controller.product.value.wantTradeLocation == null ||
+                    controller.product.value.wantTradeLocationLabel == ''
+                ? Row(
+                  children: [
+                    const AppFont('장소 선택', size: 13, color: Color(0xff6D7179),),
+                    SvgPicture.asset("assets/svg/icons/right.svg"),
+                  ])
+                : Row(
+                  children: [
+                    AppFont(
+                      controller.product.value.wantTradeLocationLabel ?? '',
+                      size: 13,
+                      color: Color(0xff6D7179),
+                    ),
+                    GestureDetector(
+                      onTap: () => controller.clearWantTradeLocation(),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SvgPicture.asset("assets/svg/icons/delete.svg"),
+                      ),
+                    )
+                  ])
+            ),
           ],
         )
       ),
@@ -39,7 +68,7 @@ class _HopeTradeLocationMap extends StatelessWidget {
 }
 
 
-class _ProductDescription extends StatelessWidget {
+class _ProductDescription extends GetView<ProductWriteController> {
   const _ProductDescription({super.key});
 
   @override
@@ -51,7 +80,7 @@ class _ProductDescription extends StatelessWidget {
         hintText: '아라동에 올릴 게시글 내용을 작성해주세요.\n(판매 금지 물품은 게시가 제한될 수 있어요.)',
         textInputType: TextInputType.multiline,
         maxLines: 10,
-        onChange: (value) {},
+        onChange: controller.changeDescription,
       ),
     );
   }

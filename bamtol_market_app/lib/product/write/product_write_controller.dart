@@ -45,4 +45,19 @@ class ProductWriteController extends GetxController {
       changePrice('0');
     }
   }
+
+  changeDescription(String value) {
+    product(product.value.copyWith(description: value));
+  }
+
+  changeTraceLocationMap(Map<String, dynamic>  mapInfo) {
+    product(product.value.copyWith(
+      wantTradeLocation: mapInfo['location'],
+      wantTradeLocationLabel: mapInfo['label']
+    ));
+  }
+
+  clearWantTradeLocation() {
+    product(product.value.copyWith(wantTradeLocationLabel: '', wantTradeLocation: null));
+  }
 }
