@@ -292,7 +292,7 @@ class _ProductTitleView extends GetView<ProductWriteController> {
 }
 
 
-class ProductWritePage extends StatelessWidget {
+class ProductWritePage extends GetView<ProductWriteController> {
   const ProductWritePage({super.key});
 
   Widget get _divider => const Divider(
@@ -315,9 +315,25 @@ class ProductWritePage extends StatelessWidget {
         centerTitle: true,
         title: const AppFont('내 물건 팔기', fontWeight: FontWeight.bold, size: 10,),
         actions: [
-          GestureDetector(
-            onTap: () {},
-            child: AppFont('완료', fontWeight: FontWeight.bold, color: Color(0xffED7738), size: 16,),
+          Obx(
+          () => GestureDetector(
+              onTap: () {
+                if (controller.isPossibleSubmit.value) {
+                  controller.submit();
+                }
+              },
+              child: Padding(
+                padding: EdgeInsets.only(top:20, right: 25),
+                child: AppFont(
+                  '완료',
+                  fontWeight: FontWeight.bold,
+                  color: controller.isPossibleSubmit.value
+                    ? const Color(0xffED7738)
+                    : Colors.grey,
+                  size: 16,
+                ),
+              ),
+            ),
           )
         ],
       ),

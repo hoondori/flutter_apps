@@ -10,6 +10,7 @@ class Product extends Equatable {
   final ProductCategoryType? categoryType;
   final LatLng? wantTradeLocation;
   final String? wantTradeLocationLabel;
+  final List<String>? imageUrls;
 
   const Product({
     this.title,
@@ -19,6 +20,7 @@ class Product extends Equatable {
     this.categoryType = ProductCategoryType.none,
     this.wantTradeLocation,
     this.wantTradeLocationLabel,
+    this.imageUrls,
   });
 
   Map<String, dynamic> toMap() {
@@ -32,7 +34,8 @@ class Product extends Equatable {
         wantTradeLocation?.latitude,
         wantTradeLocation?.longitude,
       ],
-      'wantTradeLocationLabel': wantTradeLocationLabel
+      'wantTradeLocationLabel': wantTradeLocationLabel,
+      'imageUrls': imageUrls,
     };
   }
 
@@ -52,6 +55,7 @@ class Product extends Equatable {
         json['wantTradeLocation'][1] != null
         ? LatLng(json['wantTradeLocation'][0], json['wantTradeLocation'][1])
         : null,
+      imageUrls: json['imageUrls'].map<String>((e) => e as String).toList(),
     );
   }
 
@@ -63,6 +67,7 @@ class Product extends Equatable {
     ProductCategoryType? categoryType,
     LatLng? wantTradeLocation,
     String? wantTradeLocationLabel,
+    List<String>? imageUrls,
   }) {
     return Product(
       title: title ?? this.title,
@@ -71,7 +76,8 @@ class Product extends Equatable {
       isFree: isFree,
       categoryType: categoryType ?? this.categoryType,
       wantTradeLocation: wantTradeLocation ?? this.wantTradeLocation,
-      wantTradeLocationLabel: wantTradeLocationLabel ?? this.wantTradeLocationLabel
+      wantTradeLocationLabel: wantTradeLocationLabel ?? this.wantTradeLocationLabel,
+      imageUrls: imageUrls ?? this.imageUrls,
     );
   }
 
@@ -83,6 +89,7 @@ class Product extends Equatable {
     isFree,
     categoryType,
     wantTradeLocation,
-    wantTradeLocationLabel
+    wantTradeLocationLabel,
+    imageUrls,
   ];
 }
