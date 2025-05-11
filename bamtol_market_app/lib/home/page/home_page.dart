@@ -1,8 +1,10 @@
 import 'package:bamtol_market_app/app.dart';
 import 'package:bamtol_market_app/common/components/app_font.dart';
+import 'package:bamtol_market_app/common/components/price_view.dart';
 import 'package:bamtol_market_app/common/layout/common_layout.dart';
 import 'package:bamtol_market_app/common/model/product.dart';
 import 'package:bamtol_market_app/home/controller/home_controller.dart';
+import 'package:bamtol_market_app/product/write/product_category_type.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -63,17 +65,9 @@ class _ProductList extends GetView<HomeController> {
               ),
               const SizedBox(height: 5,),
               subInfo(product),
-              const AppFont(
-                'fly sky - 2025.05.05',
-                size: 12,
-                color: Color(0xff878B93),
-              ),
-              const SizedBox(height: 5,),
-              const Row(
-                children: [
-                  AppFont('나눔', size: 14, fontWeight: FontWeight.bold,),
-                  AppFont('🧡', size: 16),
-                ],
+              PriceView(
+                price: product.productPrice ?? 0,
+                status: product.status ?? ProductStatusType.sale,
               )
             ],
           )
@@ -87,14 +81,21 @@ class _ProductList extends GetView<HomeController> {
     return Obx(
       () => ListView.separated(
         padding: const EdgeInsets.only(left: 25.0, top: 20, right: 25),
+        controller: controller.scrollController,
         itemBuilder: (context, index) {
-          return _productOne(controller.productList[index]);
+          if (index == controller.productList.length) {
+            return controller.searchOption.lastItem != null
+                ? const Center(child: CircularProgressIndicator(strokeWidth: 1,),)
+                : Container();
+          } else {
+            return _productOne(controller.productList[index]);
+          }
         },
         separatorBuilder: (context, index) => const Padding(
           padding: EdgeInsets.symmetric(vertical: 10.0),
           child: Divider(color: Color(0xff3C3C3E)),
         ),
-        itemCount: controller.productList.length,
+        itemCount: controller.productList.length + 1,
       ),
     );
   }
@@ -136,7 +137,10 @@ class HomePage extends StatelessWidget {
       body: const _ProductList(),
       floatingActionButton: GestureDetector(
         onTap: () async {
-          Get.toNamed('/product/write');
+          var isNeedRefresh = await Get.toNamed('/product/write');
+          if (isNeedRefresh is bool && isNeedRefresh) {
+            Get.find<HomeController>().refresh();
+          }
         },
         behavior: HitTestBehavior.translucent,
         child: Row(
