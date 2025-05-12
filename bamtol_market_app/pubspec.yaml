@@ -51,6 +51,9 @@ dependencies:
   flutter_map: 5.0.0
   geolocator: ^14.0.0
   latlong2: ^0.9.1
+  carousel_slider: ^5.0.0
+  cached_network_image: ^3.4.1
+  timeago: ^3.7.1
 
 dev_dependencies:
   flutter_test:

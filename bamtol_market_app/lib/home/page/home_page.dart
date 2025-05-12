@@ -37,42 +37,48 @@ class _ProductList extends GetView<HomeController> {
   }
 
   Widget _productOne(Product product) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(7),
-          child: SizedBox(
-            width: 100,
-            height: 100,
-            child: Image.network(
-              product.imageUrls != null && product.imageUrls!.isNotEmpty
-                ? product.imageUrls!.first ?? ''
-                : 'https://cdn.kgmaeil.net/news/photo/202007/245825_49825_2217.jpg'
+    return GestureDetector(
+      onTap: () {
+        Get.toNamed('/product/detail/${product.docId}');
+      },
+      behavior: HitTestBehavior.translucent,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(7),
+            child: SizedBox(
+              width: 100,
+              height: 100,
+              child: Image.network(
+                product.imageUrls != null && product.imageUrls!.isNotEmpty
+                  ? product.imageUrls!.first ?? ''
+                  : 'https://cdn.kgmaeil.net/news/photo/202007/245825_49825_2217.jpg'
+              ),
             ),
           ),
-        ),
-        const SizedBox(width: 15),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const SizedBox(height: 10,),
-              AppFont(
-                product.title ?? 'default product title',
-                color: Colors.white,
-                size: 16,
-              ),
-              const SizedBox(height: 5,),
-              subInfo(product),
-              PriceView(
-                price: product.productPrice ?? 0,
-                status: product.status ?? ProductStatusType.sale,
-              )
-            ],
+          const SizedBox(width: 15),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const SizedBox(height: 10,),
+                AppFont(
+                  product.title ?? 'default product title',
+                  color: Colors.white,
+                  size: 16,
+                ),
+                const SizedBox(height: 5,),
+                subInfo(product),
+                PriceView(
+                  price: product.productPrice ?? 0,
+                  status: product.status ?? ProductStatusType.sale,
+                )
+              ],
+            )
           )
-        )
-      ],
+        ],
+      ),
     );
   }
 

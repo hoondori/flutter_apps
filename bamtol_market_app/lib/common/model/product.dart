@@ -38,6 +38,8 @@ class Product extends Equatable {
     this.likers,
   });
 
+  const Product.empty() : this();
+
   Map<String, dynamic> toMap() {
     return {
       'owner': owner!.toJson(),
